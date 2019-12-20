@@ -30,7 +30,6 @@ class RecipeControllerTest {
     RecipeController controller;
     MockMvc mockMvc;
 
-//    @Autowired
     @Mock
     RecipeService recipeService;
 
