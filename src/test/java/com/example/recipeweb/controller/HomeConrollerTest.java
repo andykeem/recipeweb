@@ -33,9 +33,6 @@ class HomeConrollerTest {
     @Mock
     private RecipeService recipeService;
 
-//    @Autowired
-//    private MockMvc mockMvc;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
