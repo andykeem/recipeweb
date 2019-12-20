@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid">
+        <h4>Show Recipes</h4>
+        <table cellpadding="10" cellspacing="0" border="0">
+            <tr><th>ID</th><th>Recipe</th><td>[<a href="#" th:href="@{/recipe/create}">create</a>]</td></tr>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.id}">123</td>
+                <td>
+<!--                    <a th:href="@{/order/details(id=${order.id})}">-->
+<!--                    <form th:action="@{/mycontroller/{path}(path=${type})}">-->
+<!--                    <a th:href="@{/recipe/view/{id}(id=${item.id})}"-->
+                    <a th:href="@{'/recipe/view/' + ${item.id}}"
+                       th:text="${item.description}">Spicy Indian Curry with Chicken</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script defer type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script th:src="@{/js/bootstrap.min.js}" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</body>
+</html>
