@@ -4,6 +4,7 @@ import com.example.recipeweb.enums.Difficulty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class RecipeCommand {
     private Long id;
+    @NotBlank(message = "Description is required")
     private String description;
     private Integer prepTime;
     private Integer cookTime;

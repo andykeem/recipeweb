@@ -14,11 +14,11 @@ public class Ingredient {
     private BigDecimal amount;
 
     @OneToOne
-    @JoinColumn(name = "uom_id")
+    @JoinColumn(name = "uom_id", foreignKey = @ForeignKey(name = "fk_ingredient_uom"))
     private UnitOfMeasure uom;
 
     @ManyToOne
-    @JoinColumn(name = "recipe_id")
+    @JoinColumn(name = "recipe_id", foreignKey = @ForeignKey(name = "fk_ingredient_recipe"))
     private Recipe recipe;
 
     public Ingredient() {

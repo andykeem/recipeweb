@@ -13,7 +13,7 @@ public class Note {
     private String text;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "recipe_id")
+    @JoinColumn(name = "recipe_id", foreignKey = @ForeignKey(name = "fk_note_recipe"))
     private Recipe recipe;
 
     public Note() {

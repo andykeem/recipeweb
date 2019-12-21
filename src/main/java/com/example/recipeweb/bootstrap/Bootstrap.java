@@ -7,12 +7,14 @@ import com.example.recipeweb.repository.CategoryRepository;
 import com.example.recipeweb.repository.RecipeRepository;
 import com.example.recipeweb.repository.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.SQLGrammarException;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -42,10 +44,24 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
     private void init() {
         log.info("Bootstrap.init() method called...");
 
-        List<Recipe> recipes = new ArrayList<>(2);
-        recipes.add(getPerfectGuacamoleRecipe());
-        recipes.add(getSpicyGrilledChickenTacosRecipe());
-        recipeRepo.saveAll(recipes);
+        try {
+            if (catRepo.count() == 0) {
+                loadCategories();
+            }
+            if (uomRepo.count() == 0) {
+                loadUnitOfMeasures();
+            }
+            if (recipeRepo.count() == 0) {
+                List<Recipe> recipes = new ArrayList<>(2);
+                recipes.add(getPerfectGuacamoleRecipe());
+                recipes.add(getSpicyGrilledChickenTacosRecipe());
+                recipeRepo.saveAll(recipes);
+            }
+        } catch (SQLGrammarException e) {
+            log.error(e.getMessage(), e);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
     }
 
     private Recipe getPerfectGuacamoleRecipe() {
@@ -137,6 +153,26 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
             public void accept(Category category) {
 //                recipe.getCategories().add(category);
                 recipe.addCategory(category);
+            }
+        });
+    }
+
+    private void loadCategories() {
+        List<String> items = Arrays.asList("American", "Italian", "Mexican", "Fast Food");
+        items.stream().forEach(new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                catRepo.save(new Category(s));
+            }
+        });
+    }
+
+    private void loadUnitOfMeasures() {
+        List<String> items = Arrays.asList("Teaspoon", "Tablespoon", "Cup", "Pinch", "Ounce", "Dash", "Ripe");
+        items.stream().forEach(new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                uomRepo.save(new UnitOfMeasure(s));
             }
         });
     }

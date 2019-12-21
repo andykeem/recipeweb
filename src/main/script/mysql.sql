@@ -14,3 +14,10 @@ GRANT DELETE ON recipe_prod.* TO 'prod'@'localhost';
 GRANT INSERT ON recipe_prod.* TO 'prod'@'localhost';
 GRANT SELECT ON recipe_prod.* TO 'prod'@'localhost';
 GRANT UPDATE ON recipe_prod.* TO 'prod'@'localhost';
+
+ALTER TABLE category AUTO_INCREMENT = 0;
+ALTER TABLE ingredient AUTO_INCREMENT = 0;
+ALTER TABLE note AUTO_INCREMENT = 0;
+ALTER TABLE recipe AUTO_INCREMENT = 0;
+ALTER TABLE recipe_category AUTO_INCREMENT = 0;
+ALTER TABLE unit_of_measure AUTO_INCREMENT = 0;

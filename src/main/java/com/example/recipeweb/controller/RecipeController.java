@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
@@ -65,7 +66,7 @@ public class RecipeController {
     }
 
     @PostMapping("/post")
-    public String post(@ModelAttribute RecipeCommand recipe, Errors err, Model model) {
+    public String post(@Valid @ModelAttribute("recipe") RecipeCommand recipe, Errors err, Model model) {
         log.debug("recipe: " + recipe);
         if (err.hasErrors()) {
             return "recipe/create";

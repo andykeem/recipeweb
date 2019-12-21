@@ -3,7 +3,6 @@ package com.example.recipeweb.entity;
 import com.example.recipeweb.enums.Difficulty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
@@ -41,7 +40,9 @@ public class Recipe {
     @ManyToMany
     @JoinTable(name = "recipe_category",
             joinColumns = { @JoinColumn(name = "recipe_id") },
-            inverseJoinColumns = { @JoinColumn(name = "category_id") })
+            inverseJoinColumns = { @JoinColumn(name = "category_id") },
+            foreignKey = @ForeignKey(name = "fk_recipe_category"),
+            inverseForeignKey = @ForeignKey(name = "fk_category_recipe"))
     private Set<Category> categories = new HashSet<>();
 
     public Recipe() {
